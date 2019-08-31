@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Category {
+class Category : Codable{
     let brand: String
     let collection: String?
     let suplierName: String?
@@ -27,9 +27,22 @@ class Category {
         self.currency = itemList[PriceCatColumn.currency.rawValue]
         self.articles = nil;
     }
+    
+    func json()-> String?{
+        let jsonEncoder = JSONEncoder()
+        do {
+        let jsonData = try jsonEncoder.encode(self)
+        let json = String(bytes: jsonData, encoding: .utf8)
+            return json
+        }
+        catch {
+            // some error
+            return nil
+        }
+    }
 }
 
-class Article {
+class Article : Codable {
     let number : String?
     let structureCode: Int?
     var variation: [Variation]?
@@ -39,13 +52,15 @@ class Article {
     }
 }
 
-class Variation {
+class Variation : Codable {
     let color : String?
     let size: String?
     let ean : String?
+    let price : String?
     init(itemList : [String]) {
         self.color = itemList[PriceCatColumn.color_code.rawValue]
         self.size = itemList[PriceCatColumn.size_code.rawValue]
         self.ean = itemList[PriceCatColumn.ean.rawValue]
+        self.price = itemList[PriceCatColumn.price_sell.rawValue]
     }
 }

@@ -38,8 +38,10 @@ class ViewController: UIViewController {
                 article.variation = variations
             }
 
-           let catagory = Category(itemList: priceCatList[0])
-            catagory.articles = articles
+           let catagory = Category(itemList: priceCatList[1])
+           catagory.articles = articles
+           print(catagory.json())
+            
         }
         else {
             //no data available or
